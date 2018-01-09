@@ -18,11 +18,11 @@ bot.on('ready',() => {
 });
 
 bot.on('guildMemberRemove', member => {
-        if(member.roles.find("name","The Banished")) member.ban();
+        if(member.roles.find("name","The Banished")||member.roles.find("name","Fallen Angels .(Banished Friends)")) member.ban();
 });
 
 bot.on('message',message => {
-    if(message.content.toLowerCase().startsWith(prefix+"setprefix"&&message.author===maker)) {
+    if(message.content.toLowerCase().startsWith(prefix+"setprefix")&&message.author.id===maker) {
         prefix = message.content.slice('11');
         console.log(`prefix changed to (${prefix})`);
     } else if (message.content.toLowerCase()===prefix+"ping") {
