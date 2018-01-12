@@ -3,7 +3,7 @@ require('cassette');
 require('discord.js-music');
 var servers = {}
 const bot = new Discord.Client();
-const config = require('./config.json');
+const config = require('config.json');
 var cmd_error =  new Discord.RichEmbed().setTitle("Error(!!)").setDescription('Your command could not be processed!:persevere:').setColor('Red');
 const maker = "190486358500835328";
 //command loading
