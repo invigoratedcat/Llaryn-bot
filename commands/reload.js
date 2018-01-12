@@ -1,4 +1,4 @@
-const config = require('https://github.com/invigoratedcat/Llaryn-bot/config.json');
+const config = require('./commands/config.json');
 const Discord = require('discord.js'),fs=require('fs');
 
 module.exports.run = async (bot,message,args) => {

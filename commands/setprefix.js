@@ -1,4 +1,4 @@
-const config = require('https://github.com/invigoratedcat/Llaryn-bot/config.json');
+const config = require('./commands/config.json');
 module.exports.run = async (bot,message,args) => {
     config.prefix = args;
     console.log(`prefix changed to (${config.prefix})`);
