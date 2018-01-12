@@ -1,4 +1,4 @@
-const config = require('C:\\Users\\kewlg\\Documents\\Github\\Llaryn-bot\\config.json');
+const config = require('./config.json');
 const Discord = require('discord.js'),fs=require('fs');
 
 module.exports.run = async (bot,message,args) => {
@@ -21,10 +21,10 @@ module.exports.run = async (bot,message,args) => {
         // });
 
         let cmd = args[0] + ".js";
-        `C:\\Users\\kewlg\\Documents\\Github\\Llaryn-bot\\commands\\${cmd}`
+        `./${cmd}`
         // message.channel.send(new Discord.RichEmbed().setTitle("Reload failed..."));
         delete require.cache[require.resolve(`./${cmd}`)];
-        let cmds = require(`C:\\Users\\kewlg\\Documents\\Github\\Llaryn-bot\\commands\\${cmd}`);
+        let cmds = require(`./commands\\${cmd}`);
         bot.commands.delete(cmds.help.name);
         bot.commands.set(cmds.help.name,cmds);
         console.log(bot.commands);
