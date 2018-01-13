@@ -1,7 +1,8 @@
 const Discord = require('discord.js'), fs = require('fs');
 var servers = {}
 const bot = new Discord.Client();
-const config = require('app/main/config.json');
+global.__base = __dirname + '/';
+const config = require(__base + 'app/main/config.json');
 var cmd_error =  new Discord.RichEmbed().setTitle("Error(!!)").setDescription('Your command could not be processed!:persevere:').setColor('Red');
 const maker = "190486358500835328";
 //command loading
