@@ -1,20 +1,21 @@
 const Discord = require('discord.js'), fs = require('fs');
-var servers = {}
 const bot = new Discord.Client();
-global.__base = __dirname + '/';
-const config = require(__base + 'app/main/config.json');
+global.__base = __dirname + '\\';
+global.__servers = bot.guilds;
+global.__songplaying;
+const config = require(__base + '\\main\\config.json');
 var cmd_error =  new Discord.RichEmbed().setTitle("Error(!!)").setDescription('Your command could not be processed!:persevere:').setColor('Red');
 const maker = "190486358500835328";
 //command loading
 bot.commands = new Discord.Collection();
-fs.readdir('./commands/',(err,files)=>{
+fs.readdir(__base + '\\commands\\',(err,files)=>{
     if(err) return console.log(err);
     let jsFiles = files.filter(f => f.split(".").pop()==="js");
     if(jsFiles.length<= 0) {
         console.log('No commands were loaded.');
     } else console.log(`${jsFiles.length} command(s) were loaded.`);
     jsFiles.forEach((f,i)=> {
-        let cmds = require(`./commands/${f}`);
+        let cmds = require(`${__base}\\commands\\${f}`);
         console.log(`${i+1}: ${f}`);
         bot.commands.set(cmds.help.name, cmds);
     });
@@ -39,10 +40,9 @@ bot.on('message', async message => {
     let args = cont.slice(1);
     let command = cont[0];
     let cmd = bot.commands.get(command.slice(config.prefix.length));
-    if(cmd==="play"||cmd==="stop") cmd.run(bot,message,args,servers);
     if(cmd) cmd.run(bot,message,args);
 });
 
 
 
-bot.login(process.env.BOT_TOKEN);
+bot.login(config.token);

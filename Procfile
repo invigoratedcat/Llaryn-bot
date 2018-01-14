@@ -1,1 +1,0 @@
-worker: node ./main/pbot.js

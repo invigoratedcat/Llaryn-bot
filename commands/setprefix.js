@@ -1,4 +1,4 @@
-const config = require(__base + 'app/main/config.json');
+const config = require(__base + '\\main\\config.json');
 module.exports.run = async (bot,message,args) => {
     config.prefix = args;
     console.log(`prefix changed to (${config.prefix})`);

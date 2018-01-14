@@ -1,31 +1,35 @@
 const Discord = require('discord.js');
 const yt = require('ytdl-core');
 
-function play(connection, message,args,servers){
-    var server = servers[message.guild.id];
+async function play(connection, message){
+    var server = __servers[message.guild.id];
+    console.log(server.queue);
+    __songplaying = server.queue[0];
     server.dispatcher = connection.playStream(yt(server.queue[0]), {audioonly: true});
-    yt.getInfo(args[0], (err,info)=>{
-        const title=info.title;
-        message.channel.send(`Playing '${title}'`);
+    yt.getInfo(server.queue[0], (err,info)=>{
+        message.channel.send(`Playing ${info.title}`);
     });
     server.queue.shift();
     server.dispatcher.on('end', ()=>{
         if (server.queue[0]){
-            play(connection,message,args,servers);
+            play(connection,message);
         } else message.channel.send('There\'s no more music for me to play!');
     });
 }
-module.exports.run = async (bot,message,args,servers)=> {
-    const playlist = message.guild.playlist;
+module.exports.run = (bot,message,args)=> {
+    if(!args[0])return message.channel.send('You must provide a link to play music!');
+    if(!yt.validateURL(args[0]))return;
     if(!message.member.voiceChannel) return message.channel.send('You need to be in a vc to use this!');
-    if(!servers[message.guild.id]) servers[message.guild.id] = {
+    if(!__servers[message.guild.id]) __servers[message.guild.id] = {
         queue: []
     }
-    var server = servers[message.guild.id];
+    var server = __servers[message.guild.id];
     server.queue.push(args[0]);
     if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(connection=>{
-        play(connection,message,args,servers);
-    });
+        play(connection,message);
+    }); else {
+        play(message.guild.voiceConnection, message);
+    }
 }
 
 module.exports.help = {
