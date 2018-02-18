@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports.run = async (bot,message,args) => {
+    if(!args[1]) return message.channel.send("You must provide a countdown ");
     var p_end = message.content.indexOf("?");
     var p_ask = message.content.slice(6,p_end+1);
     var p_mess=new Discord.RichEmbed().setTitle("Poll: "+p_ask).setDescription("React with :thumbsup: or :thumbsdown: to answer!").setColor([255, 0, 255]);
