@@ -10,13 +10,13 @@ module.exports.run = async (bot,message,args)=> {
         try {
             out = fn(eval(toeval));
         } catch (error) {
-            console.log("your evaluation fucked up\n" +  error);
+            console.log("your evaluation resulted in an error: \n" +  error);
             out = error;
         }
         var showeval = new Discord.RichEmbed().setTitle("Evaluation of code:").addField("in: ", "```" +toeval+"```\n", true).addField("out: ", "```"+out+"```", true);      
         message.channel.send(showeval);
     } else {
-
+        message.channel.send("You are not authorized to use this command.")
     }
 }
 

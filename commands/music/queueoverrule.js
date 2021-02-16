@@ -9,7 +9,7 @@ function play(connection,message) {
     });
 }
 module.exports.run = (bot,message,args) => {
-    if(!message.member.id ==='190486358500835328')return message.channel.send('You cannot use this command, fool.');
+    if(!message.member.id ==='190486358500835328')return message.channel.send('You cannot use this command.');
     __queueoverrule = true;
     if(!__servers[message.guild.id])__servers[message.guild.id] = {
         queue: []

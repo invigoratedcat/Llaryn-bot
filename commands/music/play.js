@@ -18,7 +18,8 @@ async function play(connection, message){
     });
 }
 module.exports.run = (bot,message,args)=> {
-    if(__queueoverrule)return message.channel.send('FOOLISH MORTAL, YOU CANNOT OVERCOME THE ***QUEUE OVERRULE***!');
+    if(message.member.id != "190486358500835328")
+        if(__queueoverrule)return message.channel.send('FOOLISH MORTAL, YOU CANNOT OVERCOME THE ***QUEUE OVERRULE***!');
     if(!args[0])return message.channel.send('You must provide a link to play music!');
     if(!yt.validateURL(args[0]))return;
     if(!message.member.voiceChannel) return message.channel.send('You need to be in a vc to use this!');
